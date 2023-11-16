@@ -109,7 +109,8 @@ create table INVENTORY (
     costPrice number(6,2) not null,
     quantity number not null,
     perishable char(1) default 'N' not null ,
-    expiration_date date,   
+    expiration_date date,  
+    discount number(5,2) default 0,
     sid number references supplier(sid) on delete set null
 );
 

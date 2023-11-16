@@ -1,19 +1,18 @@
--- if you run this file with script button it wont work for all the values as some values were hardcoded with wrong indexes. not sure. so some ids will be 1 instead of 
--- 2 or 3. i had to do that because i ran the sequence individually so the nextval increased. 
-truncate table customer; --
+select * from transactions;
+delete from customer; --
 drop sequence cid_seq;
-truncate table membership; --
+delete from membership; --
 drop sequence mid_seq;
-truncate table cart; --
+delete from cart; --
 drop sequence ctid_seq;
-truncate table employee; --
+delete from employee; --
 drop sequence eid_seq;
-truncate table inventory;
+delete from inventory;
 drop sequence iid_seq;
-truncate table cart_details;
-truncate table transactions;
+delete from cart_details;
+delete from transactions;
 drop sequence tid_seq;
-truncate table supplier;
+delete from supplier;
 drop sequence sid_seq;
 
 create sequence eid_seq;
@@ -132,33 +131,75 @@ values (sid_seq.nextval, 'supplier7', 'aldi', 'sup7@gmail.com');
 
 create sequence iid_seq;
 select * from inventory;
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount, sid)
+values (iid_seq.nextval,'pizza', 'description1', 40, 15, 'Y', sysdate+10, 1, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
+values (iid_seq.nextval,'milk', 'description2', 30, 15, 'Y', sysdate+8,2, 1);
 insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'pizza', 'frozen pizza', 10, 15, 'Y', sysdate+10,1);
+values (iid_seq.nextval,'pastry', 'description3', 33, 15, 'Y', sysdate+7,1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
+values (iid_seq.nextval,'cake', 'description4', 90, 15, 'Y', sysdate+14,4, 1);
 insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'milk', 'frozen pizza', 10, 15, 'Y', sysdate+8,1);
+values (iid_seq.nextval,'veggies', 'description5', 40, 15, 'Y', sysdate+20,1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
+values (iid_seq.nextval,'fruits', 'description6', 100, 15, 'Y', sysdate+100,5, 1);
 insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'pastry', 'frozen pizza', 10, 15, 'Y', sysdate+7,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'cake', 'frozen pizza', 10, 15, 'Y', sysdate+14,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'veggies', 'frozen pizza', 10, 15, 'Y', sysdate+20,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'fruits', 'frozen pizza', 10, 15, 'Y', sysdate+100,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'chocolate', 'frozen pizza', 10, 15, 'Y', sysdate+60,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'toothpaste', 'frozen pizza', 10, 15, 'Y', sysdate+240,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'cocacola', 'frozen pizza', 10, 15, 'Y', sysdate+7,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'shampoo', 'frozen pizza', 10, 15, 'Y', sysdate+180,1);
+values (iid_seq.nextval,'chocolate', 'description7', 50, 15, 'Y', sysdate+60,1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
+values (iid_seq.nextval,'toothpaste', 'description8', 100, 15, 'Y', sysdate+240,1, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
+values (iid_seq.nextval,'cocacola', 'description9', 70, 15, 'Y', sysdate+7,25, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
+values (iid_seq.nextval,'shampoo', 'description10', 20, 15, 'Y', sysdate+180,12, 1);
 -- more inventory data
-
+select * from cart;
+select * from inventory;
 insert into cart_details(ctid, iid, salesprice, quantity)
-values (2, 1, 20, 2);
+values (1, 8, (select costprice-discount from inventory where inventory.iid = 8), 2);
+--update inventory set quantity = 
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (1, 4, (select costprice-discount from inventory where inventory.iid = 4), 4);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (1, 1, (select costprice-discount from inventory where inventory.iid = 1), 1);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (2, 6, (select costprice-discount from inventory where inventory.iid = 6), 5);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (3, 4, (select costprice-discount from inventory where inventory.iid = 4), 2);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (3, 2, (select costprice-discount from inventory where inventory.iid = 2), 3);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (4, 6, (select costprice-discount from inventory where inventory.iid = 6), 5);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (4, 7, (select costprice-discount from inventory where inventory.iid = 7), 2);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (5, 2, (select costprice-discount from inventory where inventory.iid = 2), 3);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (6, 4, (select costprice-discount from inventory where inventory.iid = 4), 2);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (6, 5, (select costprice-discount from inventory where inventory.iid = 5), 4);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (7, 3, (select costprice-discount from inventory where inventory.iid = 3), 4);
+insert into cart_details(ctid, iid, salesprice, quantity)
+values (10, 9, (select costprice-discount from inventory where inventory.iid = 9), 6);
 -- more cart_details data
-
-select * from transactions;
+select * from cart_details;
+select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 1 group by cart_details.ctid ;
+--select * from transactions;
 create sequence tid_seq;
+select * from transactions;
 insert into transactions(tid, total_payment, payment_details, ctid)
-values(tid_seq.nextval, 100, 'bofa', 2); -- will have to calculate total_payment. Just inputted random value for now.
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 1 group by cart_details.ctid), 'bofa', 1); 
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 2 group by cart_details.ctid), 'bofa', 2); 
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 3 group by cart_details.ctid), 'bofa', 3);
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 4 group by cart_details.ctid), 'bofa', 4); 
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 5 group by cart_details.ctid), 'bofa', 5); 
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 6 group by cart_details.ctid), 'bofa', 6);
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 7 group by cart_details.ctid), 'bofa', 7); 
+insert into transactions(tid, total_payment, payment_details, ctid)
+values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 10 group by cart_details.ctid), 'bofa', 10); 
