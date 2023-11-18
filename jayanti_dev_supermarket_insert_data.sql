@@ -89,27 +89,27 @@ values (cid_seq.nextval, 'cust16', add_months(trunc(sysdate), -17*11), 'cust16@g
 
 create sequence ctid_seq;
 insert into cart(ctid, date_created, cid, eid)
-values (ctid_seq.nextval, to_date('11/25/2022', 'MM/DD/YYYY'), 3, 1); 
+values (ctid_seq.nextval, to_date('11/25/2022', 'MM/DD/YYYY'), 3, 4); 
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('11/25/2022', 'MM/DD/YYYY'), 3, 1);
+VALUES (ctid_seq.nextval, TO_DATE('11/25/2022', 'MM/DD/YYYY'), 3, 4);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('11/26/2022', 'MM/DD/YYYY'), 4, 2);
+VALUES (ctid_seq.nextval, TO_DATE('11/26/2022', 'MM/DD/YYYY'), 4, 6);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('11/27/2022', 'MM/DD/YYYY'), 5, 1);
+VALUES (ctid_seq.nextval, TO_DATE('11/27/2022', 'MM/DD/YYYY'), 5, 6);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('11/28/2022', 'MM/DD/YYYY'), 6, 2);
+VALUES (ctid_seq.nextval, TO_DATE('11/28/2022', 'MM/DD/YYYY'), 6, 4);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('11/29/2022', 'MM/DD/YYYY'), 7, 1);
+VALUES (ctid_seq.nextval, TO_DATE('11/29/2022', 'MM/DD/YYYY'), 7, 7);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('11/30/2022', 'MM/DD/YYYY'), 8, 2);
+VALUES (ctid_seq.nextval, TO_DATE('11/30/2022', 'MM/DD/YYYY'), 8, 12);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('12/01/2022', 'MM/DD/YYYY'), 9, 2);
+VALUES (ctid_seq.nextval, TO_DATE('12/01/2022', 'MM/DD/YYYY'), 9, 12);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('12/02/2022', 'MM/DD/YYYY'), 10, 2);
+VALUES (ctid_seq.nextval, TO_DATE('12/02/2022', 'MM/DD/YYYY'), 10, 12);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('12/03/2022', 'MM/DD/YYYY'), 11, 1);
+VALUES (ctid_seq.nextval, TO_DATE('12/03/2022', 'MM/DD/YYYY'), 11, 11);
 INSERT INTO cart(ctid, date_created, cid, eid)
-VALUES (ctid_seq.nextval, TO_DATE('12/04/2022', 'MM/DD/YYYY'), 12, 2);
+VALUES (ctid_seq.nextval, TO_DATE('12/04/2022', 'MM/DD/YYYY'), 12, 12);
 -- more cart data
 
 create sequence sid_seq;
@@ -131,62 +131,207 @@ values (sid_seq.nextval, 'supplier7', 'aldi', 'sup7@gmail.com');
 
 create sequence iid_seq;
 select * from inventory;
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount, sid)
-values (iid_seq.nextval,'pizza', 'description1', 40, 15, 'Y', sysdate+10, 1, 1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
-values (iid_seq.nextval,'milk', 'description2', 30, 15, 'Y', sysdate+8,2, 1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'pastry', 'description3', 33, 15, 'Y', sysdate+7,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
-values (iid_seq.nextval,'cake', 'description4', 90, 15, 'Y', sysdate+14,4, 1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'veggies', 'description5', 40, 15, 'Y', sysdate+20,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
-values (iid_seq.nextval,'fruits', 'description6', 100, 15, 'Y', sysdate+100,5, 1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, sid)
-values (iid_seq.nextval,'chocolate', 'description7', 50, 15, 'Y', sysdate+60,1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
-values (iid_seq.nextval,'toothpaste', 'description8', 100, 15, 'Y', sysdate+240,1, 1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
-values (iid_seq.nextval,'cocacola', 'description9', 70, 15, 'Y', sysdate+7,25, 1);
-insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, discount,  sid)
-values (iid_seq.nextval,'shampoo', 'description10', 20, 15, 'Y', sysdate+180,12, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice, sid)
+values (iid_seq.nextval,'pizza', 'description1', 40, 15, 'Y', sysdate+10, 20, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice,  sid)
+values (iid_seq.nextval,'milk', 'description2', 30, 15, 'Y', sysdate+8, 20, 2);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice, sid)
+values (iid_seq.nextval,'pastry', 'description3', 33, 15, 'Y', sysdate+7,15, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice,  sid)
+values (iid_seq.nextval,'cake', 'description4', 90, 15, 'Y', sysdate+14,80, 3);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice, sid)
+values (iid_seq.nextval,'veggies', 'description5', 40, 15, 'Y', sysdate+20,25, 3);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice, sid)
+values (iid_seq.nextval,'fruits', 'description6', 85, 15, 'Y', sysdate+100,70, 2);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice, sid)
+values (iid_seq.nextval,'chocolate', 'description7', 50, 15, 'Y', sysdate+60,30, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice,  sid)
+values (iid_seq.nextval,'toothpaste', 'description8', 100, 15, 'Y', sysdate+240,90, 2);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice,  sid)
+values (iid_seq.nextval,'cocacola', 'description9', 60, 15, 'Y', sysdate+7, 55, 1);
+insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice,  sid)
+values (iid_seq.nextval,'shampoo', 'description10', 20, 15, 'Y', sysdate+180,5, 1);
 -- more inventory data
-select * from cart;
-select * from inventory;
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (1, 8, (select costprice-discount from inventory where inventory.iid = 8), 2);
---update inventory set quantity = 
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (1, 4, (select costprice-discount from inventory where inventory.iid = 4), 4);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (1, 1, (select costprice-discount from inventory where inventory.iid = 1), 1);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (2, 6, (select costprice-discount from inventory where inventory.iid = 6), 5);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (3, 4, (select costprice-discount from inventory where inventory.iid = 4), 2);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (3, 2, (select costprice-discount from inventory where inventory.iid = 2), 3);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (4, 6, (select costprice-discount from inventory where inventory.iid = 6), 5);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (4, 7, (select costprice-discount from inventory where inventory.iid = 7), 2);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (5, 2, (select costprice-discount from inventory where inventory.iid = 2), 3);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (6, 4, (select costprice-discount from inventory where inventory.iid = 4), 2);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (6, 5, (select costprice-discount from inventory where inventory.iid = 5), 4);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (7, 3, (select costprice-discount from inventory where inventory.iid = 3), 4);
-insert into cart_details(ctid, iid, salesprice, quantity)
-values (10, 9, (select costprice-discount from inventory where inventory.iid = 9), 6);
--- more cart_details data
-select * from cart_details;
-select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 1 group by cart_details.ctid ;
---select * from transactions;
+
+insert into cart_details(ctid, iid, quantity)
+values (1, 8, 2);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 8 and cd.ctid = 1 and c.mid is not null
+)
+where iid = 8 and ctid = 1;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 8) - 2 where iid=8; 
+------------------
+
+insert into cart_details(ctid, iid, quantity)
+values (1, 4, 4);
+update cart_details set salesPrice = (
+select 
+(i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 4 and cd.ctid = 1 and c.mid is not null
+)
+where iid = 4 and ctid = 1;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 4) - 4 where iid=4;
+
+
+
+insert into cart_details(ctid, iid, quantity)
+values (1, 1, 1);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 1 and cd.ctid = 1 and c.mid is not null)
+where iid = 1 and ctid = 1;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 1) - 1 where iid=1; 
+
+
+insert into cart_details(ctid, iid, quantity)
+values (2, 6, 5);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 6 and cd.ctid = 2 and c.mid is not null)
+where iid = 6 and ctid = 2;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 6) - 5 where iid=6; 
+
+
+insert into cart_details(ctid, iid, quantity)
+values (3, 4, 2);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 4 and cd.ctid = 3 and c.mid is not null)
+where iid = 4 and ctid = 3;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 4) - 2 where iid=4; 
+
+
+
+insert into cart_details(ctid, iid, quantity)
+values (3, 2, 3);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 2 and cd.ctid = 3 and c.mid is not null)
+where iid = 2 and ctid = 3;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 2) - 3 where iid=2; 
+
+
+
+insert into cart_details(ctid, iid, quantity)
+values (4, 6, 5);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 6 and cd.ctid = 4 and c.mid is not null)
+where iid = 6 and ctid = 4;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 6) - 5 where iid=6; 
+
+
+insert into cart_details(ctid, iid, quantity)
+values (4, 7, 4);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 7 and cd.ctid = 4 and c.mid is not null)
+where iid = 7 and ctid = 4;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 7) - 4 where iid=7; 
+
+
+insert into cart_details(ctid, iid, quantity)
+values (5, 2, 3);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 2 and cd.ctid = 5 and c.mid is not null)
+where iid = 2 and ctid = 5;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 2) - 3 where iid=2; 
+
+
+
+insert into cart_details(ctid, iid, quantity)
+values (6, 4, 2);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 4 and cd.ctid = 6 and c.mid is not null)
+where iid = 4 and ctid = 6;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 4) - 2 where iid=4; 
+
+
+
+insert into cart_details(ctid, iid, quantity)
+values (6, 5, 4);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 5 and cd.ctid = 6 and c.mid is not null)
+where iid = 5 and ctid = 6;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 5) - 4 where iid=5; 
+
+
+
+insert into cart_details(ctid, iid, quantity)
+values (7, 3, 4);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 3 and cd.ctid = 7 and c.mid is not null)
+where iid = 3 and ctid = 7;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 3) - 4 where iid=7; 
+
+
+insert into cart_details(ctid, iid, quantity)
+values (10, 9, 6);
+update cart_details set salesPrice = (
+select (i.costPrice) - (m.benefits * i.costPrice)/100
+from membership m 
+join customer c on m.mid = c.mid 
+join cart cr on c.cid = cr.cid 
+join cart_details cd on cd.ctid = cr.ctid 
+join inventory i on cd.iid = i.iid where i.iid = 9 and cd.ctid = 10 and c.mid is not null)
+where iid = 9 and ctid = 10;
+update inventory set quantity = (select quantity from inventory where inventory.iid = 9) - 6 where iid=9; 
+
+
 create sequence tid_seq;
-select * from transactions;
 insert into transactions(tid, total_payment, payment_details, ctid)
 values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 1 group by cart_details.ctid), 'bofa', 1); 
 insert into transactions(tid, total_payment, payment_details, ctid)
@@ -203,3 +348,5 @@ insert into transactions(tid, total_payment, payment_details, ctid)
 values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 7 group by cart_details.ctid), 'bofa', 7); 
 insert into transactions(tid, total_payment, payment_details, ctid)
 values(tid_seq.nextval,(select sum(salesprice*quantity) from cart_details join cart on cart.ctid = cart_details.ctid where cart_details.ctid = 10 group by cart_details.ctid), 'bofa', 10); 
+
+select * from cart_details;
