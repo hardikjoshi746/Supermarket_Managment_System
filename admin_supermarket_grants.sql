@@ -22,8 +22,3 @@ GRANT SELECT ON customer_transactions_view TO customer;
 GRANT SELECT ON most_sold_products_view TO store_manager;
 GRANT SELECT ON perishable_inventory_view TO store_manager, employee;
 GRANT SELECT ON inventory_sales_view TO store_manager;
-GRANT SELECT ON new_customer_savings_view TO customer, store_manager;
-
-
-
-
