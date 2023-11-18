@@ -1,7 +1,7 @@
 
 --1) customer membership 
 
-CREATE VIEW new_customer_savings_view AS
+CREATE OR REPLACE VIEW new_customer_savings_view AS
 SELECT
     c.name AS customer_name,
     TO_CHAR(cr.date_created, 'MM') AS month,
@@ -17,7 +17,7 @@ GROUP BY
 
 --2) sales summary 
 
-CREATE VIEW inventory_sales_view AS
+CREATE OR REPLACE VIEW inventory_sales_view AS
 SELECT
     i.iid,
     i.name,
@@ -38,7 +38,7 @@ SELECT * FROM inventory_sales_view;
 --select * from inventory;
 
 -- 3) products that need to be replaced 
-CREATE VIEW perishable_inventory_view AS
+CREATE OR REPLACE VIEW perishable_inventory_view AS
 SELECT *
 FROM inventory
 WHERE (perishable = 'Y' AND (expiration_date - SYSDATE) < 10) OR (quantity = 0);
@@ -50,7 +50,7 @@ SELECT * FROM perishable_inventory_view;
 -- 4) Customer transections
 
 
-CREATE VIEW customer_transactions_view AS
+CREATE OR REPLACE VIEW customer_transactions_view AS
 SELECT
     c.cid AS customer_id,
     c.name AS customer_name,
@@ -67,7 +67,7 @@ SELECT * FROM customer_transactions_view;
 
 -- 5) most product sold
 
-CREATE VIEW most_sold_products_view AS
+CREATE OR REPLACE VIEW most_sold_products_view AS
 SELECT
     i.iid AS product_id,
     i.name AS product_name,
@@ -80,7 +80,7 @@ GROUP BY
 ORDER BY
     COUNT(*) DESC;
     
-SELECT * FROM most_sold_products_view;
+
 
 
 
