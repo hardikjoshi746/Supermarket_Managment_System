@@ -1,6 +1,8 @@
 set serveroutput on;
 select * from user_objects;
 
+-- delete user_constraints 
+--select * from user_constraints;
 BEGIN
 for myobject in (
         with myObjects as (
@@ -107,16 +109,20 @@ create table INVENTORY (
     name varchar2(50) not null,
     description varchar2(100),
     costPrice number(6,2) not null,
-    quantity number not null,
+    quantity number not null check(quantity > 0),
     perishable char(1) default 'N' not null ,
-    expiration_date date,   
+    expiration_date date,  -- if expiration date over sysdate order new product
+    purchasePrice number(6,2) not null,
     sid number references supplier(sid) on delete set null
 );
 
 create table CART_DETAILS (
     ctid number references cart(ctid) on delete cascade not null,
     iid number references inventory(iid) on delete cascade not null,
-    salesPrice number(6,2) not null,
+    salesPrice number(6,2) default 0 not null,
     quantity number not null,
     constraint pk_cart_details PRIMARY KEY (ctid, iid)
 );
+
+
+
