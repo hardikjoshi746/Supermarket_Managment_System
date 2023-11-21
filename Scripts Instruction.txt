@@ -4,5 +4,5 @@ Order to run scripts -
 
 2) jayanti_dev_supermarket_insert_data
 
-3) dev_supermarket_grants
+3) dev_supermarket_views
 
