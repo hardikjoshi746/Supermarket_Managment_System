@@ -78,13 +78,13 @@ create table EMPLOYEE (
     eid number primary key,
     name varchar2(50) not null,
     hire_date date not null,
-    type varchar2(50) not null check(type in ('Cashier', 'Manager', 'Stocker', 'Supervisor')),
+    type varchar2(50) not null check(type in ('Cashier', 'Manager', 'Stocker', 'Storemanager')),
     salary number(7,2) not null,
     reports_to number references employee(eid) on delete set null
 );
 
 insert into employee(eid, name, hire_date, type, salary, reports_to)
-values (eid_seq.nextval, 'sup1', add_months(trunc(sysdate), -12), 'Supervisor', 10000.00, null);
+values (eid_seq.nextval, 'sup1', add_months(trunc(sysdate), -12), 'Storemanager', 10000.00, null);
 insert into employee(eid, name, hire_date, type, salary, reports_to)
 values (eid_seq.nextval, 'mng1', add_months(trunc(sysdate), -11), 'Manager', 8000.00, 1);
 insert into employee(eid, name, hire_date, type, salary, reports_to)
@@ -138,7 +138,7 @@ create table INVENTORY (
     perishable char(1) default 'N' not null ,
     expiration_date date,  -- if expiration date over sysdate order new product
     purchasePrice number(6,2) not null,
-    sid number references supplier(sid) on delete set null
+    sid number references supplier(sid) on delete set null not null
 );
 
 insert into inventory(iid, name, description, costprice, quantity, perishable, expiration_date, purchasePrice, sid)
