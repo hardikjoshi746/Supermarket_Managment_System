@@ -201,7 +201,7 @@ end insert_new_inventory;
 
 create or replace package place_order
 as 
-function create_cart(pi_cid number, pi_eid number) return number;
+function create_cart(pi_cid number,pi_date date default sysdate, pi_eid number) return number;
 procedure add_item_to_cart(pi_ctid number, pi_inventory_name varchar, pi_quantity number);
 procedure add_payment_for_cart(pi_cart_id number, pi_payment_details varchar);
 end;
@@ -210,11 +210,11 @@ end;
 create or replace package body place_order 
 as 
 --function to initialise cart place_order.create_cart(1, 2)
-function create_cart(pi_cid number, pi_eid number)
+function create_cart(pi_cid number, pi_date date default sysdate, pi_eid number)
 return number 
 as
-begin    
-    insert into cart values (ctid_seq.nextval, sysdate, pi_cid, pi_eid);
+begin  
+    insert into cart values (ctid_seq.nextval, pi_date, pi_cid, pi_eid);
     commit;
     return ctid_seq.currval;
 exception 
