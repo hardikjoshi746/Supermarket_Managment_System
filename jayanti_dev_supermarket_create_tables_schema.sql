@@ -123,3 +123,6 @@ create table CART_DETAILS (
     quantity number not null,
     constraint pk_cart_details PRIMARY KEY (ctid, iid)
 );
+
+
+

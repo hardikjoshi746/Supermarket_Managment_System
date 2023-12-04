@@ -1,30 +1,86 @@
-show user;
-select * from customer;
 
 --1) customer membership 
-select c.name, to_char(cr.date_created, 'MM') month,  abs(sum(cd.salesprice - i.costprice)) amount_Saved
-from customer c join cart cr on c.cid = cr.cid
-join cart_details cd on cr.ctid = cd.ctid
-join inventory i on cd.iid = i.iid
-group by to_char(cr.date_created, 'MM'), c.name;
 
+CREATE OR REPLACE VIEW new_customer_savings_view AS
+SELECT
+    c.name AS customer_name,
+    TO_CHAR(cr.date_created, 'MM') AS month,
+    ABS(SUM(cd.salesprice - i.costprice)) AS amount_saved
+FROM
+    customer c
+    JOIN cart cr ON c.cid = cr.cid
+    JOIN cart_details cd ON cr.ctid = cd.ctid
+    JOIN inventory i ON cd.iid = i.iid
+GROUP BY
+    TO_CHAR(cr.date_created, 'MM'),
+    c.name;
 
 --2) sales summary 
 
-select i.iid,i.name, count(*) quantity_sold, sum(salesprice - purchaseprice) margin_per_item
-from customer c join cart cr on c.cid = cr.cid
-join cart_details cd on cr.ctid = cd.ctid
-join inventory i on cd.iid = i.iid
-group by i.iid, i.name
-order by count(*) desc;
+CREATE OR REPLACE VIEW inventory_sales_view AS
+SELECT
+    i.iid,
+    i.name,
+    COUNT(*) AS quantity_sold,
+    SUM(cd.salesprice - i.purchaseprice) AS margin_per_item
+FROM
+    customer c
+    JOIN cart cr ON c.cid = cr.cid
+    JOIN cart_details cd ON cr.ctid = cd.ctid
+    JOIN inventory i ON cd.iid = i.iid
+GROUP BY
+    i.iid, i.name
+ORDER BY
+    COUNT(*) DESC;
 
+SELECT * FROM inventory_sales_view;
 
 --select * from inventory;
 
 -- 3) products that need to be replaced 
-select *
-from inventory 
-where (perishable = 'Y' and (expiration_date - sysdate) < 10) or (quantity = 0); 
+CREATE OR REPLACE VIEW perishable_inventory_view AS
+SELECT *
+FROM inventory
+WHERE (perishable = 'Y' AND (expiration_date - SYSDATE) < 10) OR (quantity = 0);
 
--- 4) top  products by month
+SELECT * FROM perishable_inventory_view;
+
+
+
+-- 4) Customer transections
+
+
+CREATE OR REPLACE VIEW customer_transactions_view AS
+SELECT
+    c.cid AS customer_id,
+    c.name AS customer_name,
+    t.tid AS transaction_id,
+    t.total_payment AS total_payment,
+    t.payment_details AS payment_details,
+    ct.date_created AS transaction_date
+FROM
+    CUSTOMER c
+    JOIN CART ct ON c.cid = ct.cid
+    JOIN TRANSACTIONS t ON ct.ctid = t.ctid;
+
+SELECT * FROM customer_transactions_view;
+
+-- 5) most product sold
+
+CREATE OR REPLACE VIEW most_sold_products_view AS
+SELECT
+    i.iid AS product_id,
+    i.name AS product_name,
+    COUNT(*) AS quantity_sold
+FROM
+    CART_DETAILS cd
+    JOIN INVENTORY i ON cd.iid = i.iid
+GROUP BY
+    i.iid, i.name
+ORDER BY
+    COUNT(*) DESC;
+    
+
+
+
 
