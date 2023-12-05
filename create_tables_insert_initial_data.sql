@@ -1,5 +1,6 @@
 set serveroutput on;
-
+show user;
+select * from user_tables;
 BEGIN
 for myobject in (
         with myObjects as (

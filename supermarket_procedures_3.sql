@@ -13,18 +13,12 @@ end hire_employee;
 
 create or replace procedure add_customer(pi_name customer.name%type, pi_dob customer.dob%type, pi_email customer.email%type, pi_membership varchar2, pi_m_st_date customer.m_st_date%type)
 as
-e_st_date_without_membership exception;
 v_mid varchar2(25);
 begin
     select mid into v_mid from membership where name = pi_membership;
-    if v_mid is null and pi_m_st_date is not null then
-        raise e_st_date_without_membership;
-    end if;
     insert into customer values(cid_seq.nextval, pi_name, pi_dob, pi_email, v_mid, pi_m_st_date);
     commit;
 exception
-    when e_st_date_without_membership then
-        dbms_output.put_line('no start date without membership');
     when no_data_found then
         dbms_output.put_line('no such membership');
     when others then
@@ -34,7 +28,6 @@ end add_customer;
 
 create or replace procedure update_customer_membership_status(pi_cid customer.cid%type, pi_membership varchar2, pi_m_st_date customer.m_st_date%type default sysdate)
 as
-e_st_date_without_membership exception;
 v_mid varchar2(25);
 begin
     select mid into v_mid from membership where name = pi_membership;
@@ -108,6 +101,7 @@ begin
         raise e_quantity_invalid;
     else
         dbms_output.put_line('works');
+        v_quantity := pi_quantity;
     end if;
     
     if pi_perishable is null then 
@@ -257,7 +251,7 @@ begin
     
 exception 
     when no_data_found then 
-        dbms_output.put_line('something went wrong');
+        dbms_output.put_line('data was not found for this entry. Please check if you have inputted parameters correctly');
     when too_many_rows then 
         dbms_output.put_line('why is this happening');
     when e_inventory_not_exist then
@@ -298,10 +292,6 @@ end place_order;
 ----------------------------------------------------------------------TRIGGER----------------------------------
 create or replace trigger updateInventoryOnLessStock
 before update of quantity on inventory for each row
-declare
-    v_quantity number;
-    v_iid number;
-    v_quantity_being_used number;
 begin
     if :new.quantity <= 10 and :new.quantity > 0 then 
         dbms_output.put_line('Quantity less. Please call supplier soon');
@@ -313,4 +303,22 @@ begin
         when others then
             dbms_output.put_line(SQLERRM);
 end;
+/
+--desc membership;
+create or replace trigger customer_added_membership 
+before insert or update of mid on customer for each row
+declare 
+v_membership_name varchar(25);
+begin 
+    if :old.mid is null then
+        dbms_output.put_line('Congrats customer joined membership');
+    else 
+        select name into v_membership_name from membership where mid = :new.mid;
+        dbms_output.put_line('Congrats customer updated membership to ' || v_membership_name);
+    end if;
 
+exception 
+    when others then
+        dbms_output.put_line(SQLERRM);
+end;
+/

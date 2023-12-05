@@ -1,4 +1,4 @@
-
+show user;
 --1) customer membership 
 -- amount customer saved in his shopping each month because of membership
 
@@ -15,7 +15,7 @@ FROM
 GROUP BY
     TO_CHAR(cr.date_created, 'MM'),
     c.name;
-
+select * from new_customer_savings_view;
 --2) sales summary 
 -- sorted products in inventory by quantity sold and margin made
 CREATE OR REPLACE VIEW inventory_sales_view AS
@@ -42,7 +42,7 @@ SELECT *
 FROM inventory
 WHERE (perishable = 'Y' AND (expiration_date - SYSDATE) < 10) OR (quantity = 0);
 
-SELECT * FROM perishable_inventory_view;
+SELECT * FROM replace_inventory_view;
 
 
 
@@ -79,20 +79,20 @@ GROUP BY
 ORDER BY
     COUNT(*) DESC;
     
-    
+select * from most_sold_products_view;    
 -- customer invoice
-
-select * from cart_details;
-select cr.ctid, i.name, i.costprice, cd.salesprice,  cd.quantity, cr.date_created
+create or replace view invoice_view as 
+select c.cid, c.name customer_name, cr.ctid, i.name inventory_name, i.costprice, cd.salesprice,  cd.quantity, cr.date_created
 from cart_details cd
 join cart cr on cr.ctid = cd.ctid
 join customer c on cr.cid = c.cid
 join inventory i on cd.iid = i.iid
+where USER = 'C' || c.cid
 order by cr.ctid, date_created;
 
 -- orders per day
 
-
+select * from invoice_view;
 -- sales per season
 -- choose between this or the next one
 create or replace view total_sales_per_season as
@@ -115,7 +115,7 @@ join transactions t on c.ctid = t.ctid
 join employee e on c.eid = e.eid
 ) temp
 ) temp2 group by season;
-
+select * from total_sales_per_season;
 --per month total sales per employee + number of sales
 create or replace view per_month_sales_per_employee as
 select month_cart_created, eid, sum(total_payment) total_sales, count(*) number_of_sales
@@ -128,12 +128,8 @@ join employee e on c.eid = e.eid
 group by rollup(month_cart_created, eid)
 order by month_cart_created; 
 
+select * from per_month_sales_per_employee;
 
--- heirarchial query 
--- have to do more
-select e.eid, e.name, e.hire_date, e.type, e.salary, level , sys_connect_by_path(name, '->') as chain_of_command
-from employee e
-start with reports_to is null
-connect by prior e.eid = e.reports_to;
+
 
 

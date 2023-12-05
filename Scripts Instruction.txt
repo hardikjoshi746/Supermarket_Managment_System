@@ -1,8 +1,0 @@
-Order to run scripts - 
-
-1) jayanti_dev_supermarket_create_tables_schema
-
-2) jayanti_dev_supermarket_insert_data
-
-3) dev_supermarket_views
-
